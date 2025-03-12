@@ -1,19 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-const Container = styled.div`
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-`;
+import { HEADERS } from '../constants';
 
 const Table = styled.table`
   width: 100%;
@@ -30,36 +18,59 @@ const Th = styled.th`
 const Td = styled.td`
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  text-align: center;
 `;
 
-const TransactionDetails = ({ transactions }) => {
+const NoTransactionMessage = styled.td`
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+`;
+
+const TransactionDetails = ({ transactions, customerName }) => {
+  const sortedTransactions = useMemo(() => {
+    return transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }, [transactions]);
+
   return (
-    <Container>
-      <Title>Transaction Details</Title>
+    <>
+      <h3>{`${HEADERS.TRANSACTION_DETAILS} ${customerName}`}</h3>
       <Table>
         <thead>
           <tr>
-            <Th>Transaction ID</Th>
-            <Th>Amount</Th>
-            <Th>Date</Th>
+            <Th>{HEADERS.TRANSACTION_ID}</Th>
+            <Th>{HEADERS.AMOUNT}</Th>
+            <Th>{HEADERS.DATE}</Th>
           </tr>
         </thead>
         <tbody>
-          {transactions.map(transaction => (
-            <tr key={transaction.transactionId}>
-              <Td>{transaction.transactionId}</Td>
-              <Td>{transaction.amount}</Td>
-              <Td>{transaction.date}</Td>
+          {sortedTransactions.length > 0 ? (
+            sortedTransactions.map(transaction => (
+              <tr key={transaction.transactionId}>
+                <Td>{transaction.transactionId}</Td>
+                <Td>{transaction.amount}</Td>
+                <Td>{transaction.date}</Td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <NoTransactionMessage colSpan="3">{HEADERS.NO_TRANSACTION}</NoTransactionMessage>
             </tr>
-          ))}
+          )}
         </tbody>
       </Table>
-    </Container>
+    </>
   );
 };
 
 TransactionDetails.propTypes = {
-  transactions: PropTypes.array.isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.shape({
+    transactionId: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
+  })).isRequired,
+  customerName: PropTypes.string.isRequired,
 };
 
 export default TransactionDetails;

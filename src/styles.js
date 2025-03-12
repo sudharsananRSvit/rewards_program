@@ -5,7 +5,7 @@ export const Container = styled.div`
   font-family: 'Arial', sans-serif;
   max-width: 800px;
   margin: 0 auto;
-  background-color:rgb(249, 242, 247);
+  background-color: rgb(249, 242, 247);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -79,4 +79,28 @@ export const Label = styled.label`
   color: #333;
   display: block;
   margin-bottom: 10px;
+`;
+
+export const ClearButton = styled(Button)`
+  background-color: #dc3545;
+
+  &:hover {
+    background-color: #c82333;
+  }
+
+  &:active {
+    background-color: #bd2130;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+export const InlineContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;

@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Label, Select } from '../styles';
+import { Label, Select, InlineContainer } from '../styles';
+import { ALL_MONTHS, YEARS, HEADERS } from '../constants';
 
-const Filter = ({ months, selectedMonth, onMonthChange }) => {
+const Filter = ({ selectedMonth, selectedYear, onMonthChange, onYearChange, customerName }) => {
   return (
-    <Container>
-      <Label htmlFor="month-select">Select Month:</Label>
+    <InlineContainer>
+      <Label htmlFor="month-select">{`${HEADERS.MONTH_DETAILS}`}</Label>
       <Select id="month-select" value={selectedMonth} onChange={(e) => onMonthChange(e.target.value)}>
         <option value="ALL">ALL</option>
-        {months.map(month => (
+        {ALL_MONTHS.map(month => (
           <option key={month} value={month}>{month}</option>
         ))}
       </Select>
-    </Container>
+      <Label htmlFor="year-select">Select Year:</Label>
+      <Select id="year-select" value={selectedYear} onChange={(e) => onYearChange(e.target.value)}>
+        {YEARS.map(year => (
+          <option key={year} value={year}>{year}</option>
+        ))}
+      </Select>
+    </InlineContainer>
   );
 };
 
 Filter.propTypes = {
-  months: PropTypes.array.isRequired,
   selectedMonth: PropTypes.string.isRequired,
+  selectedYear: PropTypes.string.isRequired,
   onMonthChange: PropTypes.func.isRequired,
+  onYearChange: PropTypes.func.isRequired,
+  customerName: PropTypes.string.isRequired,
 };
 
 export default Filter;
