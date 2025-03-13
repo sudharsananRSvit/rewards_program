@@ -1,40 +1,28 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { fetchTransactions } from './services/api';
-import CustomerDropdown from './components/CustomerDropdown';
-import CustomerRewards from './components/CustomerRewards';
-import TransactionDetails from './components/TransactionDetails';
+import React, { useState, useMemo } from 'react';
+import CustomerDropdown from './components/customerDropdown';
+import CustomerRewards from './components/customerRewards';
+import TransactionDetails from './components/transactionDetails';
 import Pagination from './components/Pagination';
 import Filter from './components/Filter';
 import { Container, Header, Section, FlexContainer, ClearButton, ButtonContainer } from './styles';
 import { HEADERS, ALL_MONTHS, YEARS } from './constants';
+import useFetchTransactions from './hooks/useFetchTransactions';
 
 const App = () => {
-  const [transactions, setTransactions] = useState([]);
+  const { transactions, loading, error } = useFetchTransactions();
   const [selectedCustomer, setSelectedCustomer] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('ALL');
   const [selectedYear, setSelectedYear] = useState('2025');
   const [currentPage, setCurrentPage] = useState(1);
-  const [customerNameTemp, setCustomerNameTemp] = useState('');
   const transactionsPerPage = 5;
-
-  useEffect(() => {
-    const loadTransactions = async () => {
-      try {
-        const data = await fetchTransactions();
-        setTransactions(data);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
-    loadTransactions();
-  }, []);
+  const [customerNameTemp, setcustomerNameTemp] = useState('');
 
   const handleCustomerSelect = (customerId) => {
     setSelectedCustomer(customerId);
     setCurrentPage(1);
     setSelectedMonth('ALL');
     setSelectedYear('2025');
-    setCustomerNameTemp(' Customer '+customerId);
+    setcustomerNameTemp(customerId);
   };
 
   const handleMonthChange = (month) => {
@@ -89,14 +77,14 @@ const App = () => {
   return (
     <Container>
       <Header>{HEADERS.REWARDS_PROGRAM}</Header>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
       <FlexContainer>
         <Section>
           <CustomerDropdown customers={uniqueCustomers} onSelectCustomer={handleCustomerSelect} />
         </Section>
         {selectedCustomer && (
-          //<CustomerRewards transactions={filteredTransactions} customerName={customerName} />
           <CustomerRewards transactions={filteredTransactions} customerName={customerNameTemp} />
-        
         )}
       </FlexContainer>
       {selectedCustomer && (

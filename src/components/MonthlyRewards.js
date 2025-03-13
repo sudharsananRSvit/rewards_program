@@ -5,7 +5,7 @@ import { MONTH_NAMES, HEADERS } from '../constants';
 const MonthlyRewards = ({ rewards, customerName }) => {
   return (
     <div>
-      <h3>{`${HEADERS.MONTHLY_REWARDS} ${customerName}`}</h3>
+      <h3>{`${HEADERS.MONTHLY_REWARDS} Customer ${customerName}`}</h3>
       <ul>
         {rewards.map((reward, index) => (
           reward > 0 && (

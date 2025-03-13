@@ -35,7 +35,7 @@ const TransactionDetails = ({ transactions, customerName }) => {
 
   return (
     <>
-      <h3>{`${HEADERS.TRANSACTION_DETAILS} ${customerName}`}</h3>
+      <h3>{`${HEADERS.TRANSACTION_DETAILS} Customer ${customerName}`}</h3>
       <Table>
         <thead>
           <tr>

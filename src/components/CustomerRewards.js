@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonthlyRewards from './MonthlyRewards';
+import MonthlyRewards from './monthlyRewards';
+import { calculateRewardPoints } from '../utils/rewardPoints';
 
 const CustomerRewards = ({ transactions, customerName }) => {
   // Calculate rewards for each month
@@ -15,17 +16,6 @@ const CustomerRewards = ({ transactions, customerName }) => {
       <MonthlyRewards rewards={rewards} customerName={customerName} />
     </div>
   );
-};
-
-const calculateRewardPoints = (amount) => {
-  let points = 0;
-  if (amount > 50) {
-    points += Math.min(amount - 50, 50);
-  }
-  if (amount > 100) {
-    points += (amount - 100) * 2;
-  }
-  return points;
 };
 
 CustomerRewards.propTypes = {

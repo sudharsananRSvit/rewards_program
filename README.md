@@ -31,5 +31,17 @@ This project is a React application that simulates a retailer's rewards program.
 - `src/App.js`: Main application component.
 - `src/index.js`: Entry point of the application.
 
+
+
+Test Cases:
+![alt text](image.png)
+
+Screenshots:
+![Home Page](image-1.png)
+![Customer Selected with monthly rewards](image-2.png)
+![Customer with Transaction Details](image-3.png)
+![Customer with Transaction Details for particular month](image-4.png)
+![No Transaction message](image-5.png)
+
 ## License
 This project is developer by Sudharsan.
