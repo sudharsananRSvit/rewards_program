@@ -12,9 +12,9 @@ const CustomerRewards = ({ transactions, customerName }) => {
   });
 
   return (
-    <div>
+    <>
       <MonthlyRewards rewards={rewards} customerName={customerName} />
-    </div>
+    </>
   );
 };
 

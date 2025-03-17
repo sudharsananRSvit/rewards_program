@@ -10,7 +10,7 @@ const CustomerDropdown = ({ customers = [], onSelectCustomer }) => {
   };
 
   return (
-    <div>
+    <>
       <Label htmlFor="customer-select">Customer</Label>
       <Select id="customer-select" onChange={handleChange}>
         <option value="">Select a customer</option>
@@ -20,7 +20,7 @@ const CustomerDropdown = ({ customers = [], onSelectCustomer }) => {
           </option>
         ))}
       </Select>
-    </div>
+    </>
   );
 };
 

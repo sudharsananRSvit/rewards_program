@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Label, Select, InlineContainer } from '../styles';
 import { ALL_MONTHS, YEARS, HEADERS } from '../constants';
 
-const Filter = ({ selectedMonth, selectedYear, onMonthChange, onYearChange, customerName }) => {
+const Filter = ({ selectedMonth, selectedYear, onMonthChange, onYearChange, customerName, recentMonths }) => {
   return (
     <InlineContainer>
       <Label htmlFor="month-select">{`${HEADERS.MONTH_DETAILS}`}</Label>
       <Select id="month-select" value={selectedMonth} onChange={(e) => onMonthChange(e.target.value)}>
-        <option value="ALL">ALL</option>
+        <option value="RECENT">Recent 3 months</option>
         {ALL_MONTHS.map(month => (
           <option key={month} value={month}>{month}</option>
         ))}
@@ -29,6 +29,7 @@ Filter.propTypes = {
   onMonthChange: PropTypes.func.isRequired,
   onYearChange: PropTypes.func.isRequired,
   customerName: PropTypes.string.isRequired,
+  recentMonths: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Filter;
